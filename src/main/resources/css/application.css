@@ -1,0 +1,8 @@
+.root{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Baskerville";
+}
+
+.spinner-blue .arc {
+    -fx-stroke: #543cff;
+}

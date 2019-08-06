@@ -1,5 +1,6 @@
 package ai.icg.ftclient;
 
+import ai.icg.ftclient.controller.LoginController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -18,6 +20,8 @@ public class FTClient extends Application {
     // single javafx application
     //TODO Need to implement pid check. cuz when system shutdown lockfile still exist.
     private static boolean islock =  false;
+    //private LoginController loginController;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         islock = lockInstance("lock.txt");
@@ -32,12 +36,17 @@ public class FTClient extends Application {
                 Platform.exit();
             }
         }
+       /* loginController =  new LoginController();
+        Parent root = loginController.SetParent("/fxml/LoginView.fxml");
+        loginController.GetStage(primaryStage);
+        //Parent root = loginController.parent;*/
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
+        Font.loadFont(getClass().getResourceAsStream("/font/BASKE1.ttf"), 12);
+        root.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
         primaryStage.setTitle("File Transfer Application");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
     }
 
     public static void main(String[] args){

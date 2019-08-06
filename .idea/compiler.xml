@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="FTClient" target="12" />
+      <module name="FTClient" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
