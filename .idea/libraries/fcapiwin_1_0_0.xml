@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="fcapiwin-1.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/icg/fc/1.0.0/fcapiwin-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -8,11 +8,10 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>3.7.0</version>
         <configuration>
-          <source>12</source>
-          <target>12</target>
-          <release>12</release>
+          <source>8</source>
+          <target>8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -51,5 +50,18 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>icg</id>
+      <name>fc-local-repo</name>
+      <url>${project.basedir}\lib\icg\fcapiwin\1.0.0\fcapiwin.jar</url>
+    </repository>
+  </repositories>
+  <properties>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>8</maven.compiler.target>
+  </properties>
 </project>
 

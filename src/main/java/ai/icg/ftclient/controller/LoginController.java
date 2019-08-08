@@ -47,11 +47,16 @@ public class LoginController implements Initializable {
         sp.setVisible(true);
         txtID.setVisible(false);
         txtPassWord.setVisible(false);
+        btnlogin.setVisible(false);
+
+        //TODO dbconnection test needed! by seoy
+        // cuz only db connection try on task and db connection will be failed,
+        // just throw connection fail exception. but this exception, javafx ui cannot catch it.
 
         task = new Task<Void>() {
             @Override
             public Void call() throws InterruptedException, SQLException, ClassNotFoundException {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
                 ft = login.getServerIPnPort(u);
 
                 return null;
@@ -60,7 +65,7 @@ public class LoginController implements Initializable {
             @Override protected void succeeded() {
                 super.succeeded();
 
-                if (ft != null || stage != null) {
+                if (ft != null && stage != null) {
                     try {
                         Parent mainview = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
                         Scene mainscen = new Scene(mainview);
@@ -107,6 +112,9 @@ public class LoginController implements Initializable {
         btnok.setVisible(false);
 
         txtID.setVisible(true);
+        txtID.setText("");
+        txtPassWord.setText("");
+
         txtPassWord.setVisible(true);
         btnlogin.setVisible(true);
 

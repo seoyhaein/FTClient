@@ -36,10 +36,6 @@ public class FTClient extends Application {
                 Platform.exit();
             }
         }
-       /* loginController =  new LoginController();
-        Parent root = loginController.SetParent("/fxml/LoginView.fxml");
-        loginController.GetStage(primaryStage);
-        //Parent root = loginController.parent;*/
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
         Font.loadFont(getClass().getResourceAsStream("/font/BASKE1.ttf"), 12);

@@ -1,0 +1,2 @@
+mvn install:install-file -Dfile=C:\github\FTClient\lib\icg\fcapiwin\1.0.0\fcapiwin.jar -DgroupId=icg -DartifactId=fcapiwin -Dversion=1.0.0 -Dpackaging=jar
+mvn clean compile package -U

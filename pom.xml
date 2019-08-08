@@ -57,17 +57,33 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>icg</id>
+            <name>fc-local-repo</name>
+            <url>${project.basedir}\lib\icg\fcapiwin\1.0.0\fcapiwin.jar</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
-
+        <dependency>
+            <groupId>icg</groupId>
+            <artifactId>fcapiwin</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>8.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.9</version>
         </dependency>
     </dependencies>
     <properties>
@@ -76,4 +92,5 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
 </project>
