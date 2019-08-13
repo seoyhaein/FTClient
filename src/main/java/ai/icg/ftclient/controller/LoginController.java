@@ -31,7 +31,6 @@ public class LoginController implements Initializable {
     public JFXButton btnlogin;
 
     private Stage stage;
-
     private FTServerModel ft;
     private Task<Void> task;
 
@@ -62,7 +61,8 @@ public class LoginController implements Initializable {
                 return null;
             }
 
-            @Override protected void succeeded() {
+            @Override
+            protected void succeeded() {
                 super.succeeded();
 
                 if (ft != null && stage != null) {
@@ -84,12 +84,14 @@ public class LoginController implements Initializable {
 
             }
 
-            @Override protected void cancelled() {
+            @Override
+            protected void cancelled() {
                 super.cancelled();
                 updateMessage("Cancelled!");
             }
 
-            @Override protected void failed() {
+            @Override
+            protected void failed() {
                 super.failed();
                 updateMessage("Failed!");
             }

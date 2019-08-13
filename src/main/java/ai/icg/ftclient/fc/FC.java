@@ -1,68 +1,151 @@
 package ai.icg.ftclient.fc;
 
-import ai.icg.ftclient.model.FCConfigModel;
-import ai.icg.ftclient.model.FileMetaDataModel;
-import javafx.util.Pair;
+import ai.icg.ftclient.utils.StringUtils;
 import unlimited.fc.client.api.FCClient;
-import unlimited.fc.client.api.FileListData;
 import unlimited.fc.client.api.TransferHook;
-import unlimited.fc.client.api.TransferMode;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class FC {
 
-    public List<Pair<Integer,TransferHook>> list = null;
+    private FCClient fcClient = null;
+    private  TransferHook transferHook = null;
 
-    public Pair<UUID,FCClient> CreateFCClient(FCConfigModel model) throws IOException {
+    public FC(FCConfig model) throws IOException {
 
-        FCClient fc = new FCClient(model.getIp(), model.getPort());
-        fc.setShowConsoleLog(model.getShowConsoleLog());
-
-        fc.initialize();
-        fc.setAutoResume(model.getAutoResume());
-
-        fc.connect();
-        fc.login(model.getId(), model.getPwd());
-        fc.setMode(model.getTransferMode());
-
-        fc.setStartRate(model.getStartRate());
-        fc.setTargetRate(model.getTargetRate());
-
-        fc.setVerifyIntegrity(model.getVerifyIntegrity());
-
-        return new Pair<>(UUID.randomUUID(),fc);
-
+        fcClient = new FCClient(model.getIp(), model.getPort());
+        fcClient.setShowConsoleLog(model.getShowConsoleLog());
+        fcClient.initialize();
+        fcClient.setAutoResume(model.getAutoResume());
+        fcClient.connect();
+        fcClient.login(model.getId(), model.getPwd());
+        fcClient.setMode(model.getTransferMode());
+        fcClient.setStartRate(model.getStartRate());
+        fcClient.setTargetRate(model.getTargetRate());
+        fcClient.setVerifyIntegrity(model.getVerifyIntegrity());
     }
 
-    public List<Pair<UUID,TransferHook>> FileUpload(Pair<UUID,FCClient> pair, FileMetaDataModel model){
+    public TransferHook FileUpload(String filepath) {
 
-        List<Pair<UUID,TransferHook>> list = new ArrayList<>();
+        if (this.fcClient == null || StringUtils.isNullOrEmpty(filepath))
+            return null;
+        try {
+            this.transferHook = this.fcClient.upload(filepath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this.transferHook;
+    }
 
-        for (FileMetaDataModel.FileInfo n : model.FileList) {
+    public void FcClientVerbose(TransferHook h) throws IOException {
+        if(h ==null)
+            return;
+
+        while (true) {
+
+            if (!h.isTransferComplete() && !h.isTransferCancelled() &&
+                    !h.isTransferError()) {
+                if (h.getStatusCode() == h.TRANSFERRING &&
+                        h.getCurrentPercent() != 100) {
+
+                    printProgress(h.getRate(), h.getCurrentPercent());
+                }
+                else if (h.getStatusCode() == h.DONEFILE) {
+                    printProgress(h.getRate(), 100);
+                }
+            }
+            else {
+                // all files complete
+                System.out.println("exit -----");
+                break;
+
+            }
+
+
+           /* if(h.isTransferComplete()){
+                System.out.println(h.getStatusCode());
+                System.out.println("Goody bye");
+                break;
+            }
+
+
+            // you could display some progress information here using the various methods in
+            // the TransferHook object
+
+            if (h.getStatusCode()==h.TRANSFERRING) {
+                System.out.println(h.getPercent() + "% "+h.getRate()+" Kbps");
+            }
+
             try {
-                list.add(new Pair<>(pair.getKey(), pair.getValue().upload(n.filepath)));
-            } catch (IOException e) {
-                e.printStackTrace();
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException ex) {
             }
         }
-        return list;
+
+        if (h.isTransferError()) {
+            System.out.println(h.getErrorMessage());*/
+
+        }
+
+
+
+       /*while(!this.transferHook.isTransferComplete()) {
+           if (!this.transferHook.isTransferComplete() && !this.transferHook.isTransferCancelled() &&
+                   !this.transferHook.isTransferError()) {
+               if (this.transferHook.getStatusCode() == this.transferHook.TRANSFERRING &&
+                       this.transferHook.getCurrentPercent() != 100) {
+
+                   printProgress(this.transferHook.getRate(), this.transferHook.getCurrentPercent());
+               } else if (this.transferHook.getStatusCode() == this.transferHook.DONEFILE) {
+                   printProgress(this.transferHook.getRate(), 100);
+                   break;
+               }
+
+           }
+       }*/
     }
 
-    //TODO 파일전송 진행 로그
-    public void FcClientVerbose(){
+    public void FcClientVerbose1(TransferHook h) {
+        if (h == null)
+            return;
+        while (!h.isTransferComplete()) {
 
+            if (!h.isTransferComplete() && !h.isTransferCancelled() &&
+                    !h.isTransferError()) {
+                if (h.getStatusCode() == h.TRANSFERRING &&
+                        h.getCurrentPercent() != 100) {
+                    System.out.println("11111111111111111111111");
+
+                    printProgress(h.getRate(), h.getCurrentPercent());
+                } else if (h.getStatusCode() == h.DONEFILE) {
+                    System.out.println("22222222222222222222222");
+                    printProgress(h.getRate(), 100);
+                    //synchronized (this) {
+                    //    notifyAll();
+                    //}
+                }
+            } else {
+                System.out.println("---------------------------------");
+                System.out.println("Status code :  " + h.getStatusCode());
+                // all files complete
+                //synchronized (this) {
+                //    notifyAll();
+            }
+
+        }
     }
 
-    public void FcClose(FCClient fcc) throws IOException {
-        FCClient fc = fcc;
-        fc.disconnect();
-        // clean up existing connection.
-        fc.finish();
-        // Ask all the worker pools to close up.  We're done all transfers.
-        fc.finishAll();
+    public void printProgress(int rate, int percent) {
+
+        System.out.println(percent + " %" + rate + " kbps");
+    }
+
+    public void FcClose() throws IOException {
+        if (this.fcClient == null)
+            return;
+
+        this.fcClient.disconnect();
+        this.fcClient.finish();
+        this.fcClient.finishAll();
     }
 }

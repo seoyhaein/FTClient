@@ -71,6 +71,11 @@
             <version>8.0.17</version>
         </dependency>
         <dependency>
+            <groupId>org.javatuples</groupId>
+            <artifactId>javatuples</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
             <groupId>icg</groupId>
             <artifactId>fcapiwin</artifactId>
             <version>1.0.0</version>

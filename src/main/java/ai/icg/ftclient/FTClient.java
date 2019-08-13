@@ -1,6 +1,5 @@
 package ai.icg.ftclient;
 
-import ai.icg.ftclient.controller.LoginController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -19,20 +18,20 @@ import java.util.Optional;
 public class FTClient extends Application {
     // single javafx application
     //TODO Need to implement pid check. cuz when system shutdown lockfile still exist.
-    private static boolean islock =  false;
+    private static boolean islock = false;
     //private LoginController loginController;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         islock = lockInstance("lock.txt");
-        if(!islock) {
+        if (!islock) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
             alert.setHeaderText(null);
             alert.setContentText("program is running");
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
+            if (result.get() == ButtonType.OK) {
                 Platform.exit();
             }
         }
@@ -45,7 +44,7 @@ public class FTClient extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 

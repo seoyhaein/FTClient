@@ -1,8 +1,6 @@
-package ai.icg.ftclient.model;
+package ai.icg.ftclient.fc;
 
-import unlimited.fc.client.api.TransferHook;
-
-public class FCConfigModel {
+public class FCConfig {
 
     private boolean showconsolelog = false;
     private boolean autoresume = false;
@@ -14,8 +12,6 @@ public class FCConfigModel {
     private Integer startrate = null;
     private Integer targetrate = null;
     private boolean verifyintegrity = false;
-
-    //private int fcclientid = 0;
 
     //getter
     public boolean getShowConsoleLog(){
@@ -58,10 +54,6 @@ public class FCConfigModel {
         return verifyintegrity;
     }
 
-   /* public int getFCClientId(){
-        return fcclientid;
-    }*/
-
     //setter
     public void setShowConsoleLog(boolean showconsolelog){
         this.showconsolelog = showconsolelog;
@@ -102,9 +94,5 @@ public class FCConfigModel {
     public void setVerifyIntegrity(boolean verifyintegrity){
         this.verifyintegrity = verifyintegrity;
     }
-
-   /* public void setFCClientId(int fccclientid){
-        this.fcclientid = fccclientid;
-    }*/
 
 }
