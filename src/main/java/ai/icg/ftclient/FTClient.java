@@ -9,6 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import jfxtras.styles.jmetro8.JMetro;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -19,11 +21,14 @@ public class FTClient extends Application {
     // single javafx application
     //TODO Need to implement pid check. cuz when system shutdown lockfile still exist.
     private static boolean islock = false;
+    public static Stage stage = null;
+
     //private LoginController loginController;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         islock = lockInstance("lock.txt");
+
         if (!islock) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
@@ -39,7 +44,13 @@ public class FTClient extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
         Font.loadFont(getClass().getResourceAsStream("/font/BASKE1.ttf"), 12);
         root.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+
         primaryStage.setTitle("File Transfer Application");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        this.stage = primaryStage;
+
+        new JMetro(JMetro.Style.LIGHT).applyTheme(root);
+
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

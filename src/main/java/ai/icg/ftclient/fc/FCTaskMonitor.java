@@ -12,7 +12,7 @@ public class FCTaskMonitor {
 
     //TODO for debugging
     private FCConfig fcConfig = populateconfigmodel();
-    private FileList fileList = populatefilelistA();
+   // private FileList fileList = populatefilelistA();
     //**
 
     // 동시에 수행할 수 있는 테스크의 수
@@ -22,7 +22,7 @@ public class FCTaskMonitor {
 
     Future<String> future = null;
 
-    public int getFileList(Queue<FileList.FileInfo> fileInfoList) {
+    public int getFileList(Queue<FileList> fileInfoList) {
         return fileInfoList.size();
     }
 
@@ -96,8 +96,10 @@ public class FCTaskMonitor {
         return CurrentTasks;
     }*/
 
-    public void RunTask(Queue<FileList.FileInfo> fileInfoList) throws InterruptedException, ExecutionException {
-        FileList.FileInfo fileInfo = null;
+    //TODO Boolean 으로 고쳐야함.
+    public void RunTask(Queue<FileList> fileInfoList) throws InterruptedException, ExecutionException {
+        FileList fileInfo = null;
+
         if (getAvailableTask() > 0) {
             //TODO while 구문 고쳐야함.
             while (getAvailableTask() > 0) {
@@ -142,13 +144,11 @@ public class FCTaskMonitor {
                 }
             }
         }
-
     }
 
     //TODO for debugging
-
     public void RunforDebug() throws ExecutionException, InterruptedException {
-        RunTask(fileList.FileInfoList);
+       // RunTask(fileList.FileInfoList);
     }
 
     public FCConfig populateconfigmodel() {
@@ -168,19 +168,6 @@ public class FCTaskMonitor {
 
         return fccmodel;
     }
-
-    public FileList populatefilelistA() {
-        FileList fileMetaDataModel = new FileList();
-
-        fileMetaDataModel.AddFileToList(fileMetaDataModel.new FileInfo("seoy1.log", "C:\\Temp\\seoy1.log"));
-        fileMetaDataModel.AddFileToList(fileMetaDataModel.new FileInfo("seoy2.log", "C:\\Temp\\seoy2.log"));
-        fileMetaDataModel.AddFileToList(fileMetaDataModel.new FileInfo("seoy3.log", "C:\\Temp\\seoy3.log"));
-        fileMetaDataModel.AddFileToList(fileMetaDataModel.new FileInfo("seoy4.log", "C:\\Temp\\seoy4.log"));
-        fileMetaDataModel.AddFileToList(fileMetaDataModel.new FileInfo("seoy5.log", "C:\\Temp\\seoy5.log"));
-
-        return fileMetaDataModel;
-    }
-    //**
 
     public void ShutDown() {
         executorService.shutdown();

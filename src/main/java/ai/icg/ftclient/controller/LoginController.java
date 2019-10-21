@@ -3,8 +3,12 @@ package ai.icg.ftclient.controller;
 import ai.icg.ftclient.dao.LoginDao;
 import ai.icg.ftclient.model.FTServerModel;
 import ai.icg.ftclient.model.UserModel;
+import ai.icg.ftclient.FTClient;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
+
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,20 +30,31 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
     public TextField txtID;
     public PasswordField txtPassWord;
+
     public JFXSpinner sp;
     public Label lbinfo;
+
     public JFXButton btnok;
     public JFXButton btnlogin;
+    public JFXButton btnClose;
+
+    public AnchorPane border;
+
 
     private Stage stage;
     private FTServerModel ft;
     private Task<Void> task;
 
+    private double xOffSet = 0;
+    private double yOffSet = 0;
+
     public void OnLogin(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         UserModel u = new UserModel();
         LoginDao login = new LoginDao();
 
+        //TODO FTClient 에서도 가져올 수 있음.
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+
         //TODO Textfield validation
         u.setUserName(txtID.getText());
         u.setPassWord(txtPassWord.getText());
@@ -47,6 +63,7 @@ public class LoginController implements Initializable {
         txtID.setVisible(false);
         txtPassWord.setVisible(false);
         btnlogin.setVisible(false);
+        btnClose.setVisible(false);
 
         //TODO dbconnection test needed! by seoy
         // cuz only db connection try on task and db connection will be failed,
@@ -67,7 +84,7 @@ public class LoginController implements Initializable {
 
                 if (ft != null && stage != null) {
                     try {
-                        Parent mainview = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
+                        Parent mainview = FXMLLoader.load(getClass().getResource("/fxml/UploadView.fxml"));
                         Scene mainscen = new Scene(mainview);
                         stage.setScene(mainscen);
                     } catch (IOException e) {
@@ -80,8 +97,8 @@ public class LoginController implements Initializable {
                     sp.setVisible(false);
                     btnlogin.setVisible(false);
                     btnok.setVisible(true);
+                    btnClose.setVisible(true);
                 }
-
             }
 
             @Override
@@ -104,9 +121,35 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         sp.setVisible(false);
         lbinfo.setVisible(false);
         btnok.setVisible(false);
+
+        makeStageDragable();
+    }
+
+    private void makeStageDragable(){
+
+        border.setOnMousePressed( event -> {
+            xOffSet = event.getSceneX();
+            yOffSet = event.getSceneY();
+        });
+
+        border.setOnMouseDragged( event -> {
+
+            FTClient.stage.setX(event.getScreenX() - xOffSet);
+            FTClient.stage.setY(event.getScreenY() - yOffSet);
+            FTClient.stage.setOpacity(0.8f);
+        });
+
+        border.setOnDragDone( event -> {
+            FTClient.stage.setOpacity(1.0f);
+        });
+
+        border.setOnMouseReleased( event -> {
+            FTClient.stage.setOpacity(1.0f);
+        });
     }
 
     public void OnCheck(ActionEvent actionEvent) {
@@ -114,14 +157,18 @@ public class LoginController implements Initializable {
         btnok.setVisible(false);
 
         txtID.setVisible(true);
+        txtPassWord.setVisible(true);
+
         txtID.setText("");
         txtPassWord.setText("");
 
-        txtPassWord.setVisible(true);
         btnlogin.setVisible(true);
-
+        btnClose.setVisible(true);
     }
 
+    public void OnClose(ActionEvent actionEvent) {
+        Platform.exit();
+    }
 }
 
 

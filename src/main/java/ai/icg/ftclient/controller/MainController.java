@@ -1,17 +1,10 @@
 package ai.icg.ftclient.controller;
 
 import ai.icg.ftclient.fc.*;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import unlimited.fc.client.api.FCClient;
-import unlimited.fc.client.api.TransferHook;
 import unlimited.fc.client.api.TransferMode;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.*;
 
 public class MainController {
@@ -51,7 +44,7 @@ public class MainController {
         return fccmodel;
     }
 
-    public FileList populatefilelistA() {
+    /*public FileList populatefilelistA() {
         FileList fileMetaDataModel = new FileList();
 
         fileMetaDataModel.AddFileToList(fileMetaDataModel.new FileInfo("6.exe", "C:\\Temp\\6.exe"));
@@ -61,9 +54,9 @@ public class MainController {
         fileMetaDataModel.AddFileToList(fileMetaDataModel.new FileInfo("10.exe", "C:\\Temp\\10.exe"));
 
         return fileMetaDataModel;
-    }
+    }*/
 
-    private FileList fileList = populatefilelistA();
+   // private FileList fileList = populatefilelistA();
 
     Future<String> future = null;
 

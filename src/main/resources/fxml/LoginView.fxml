@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXSpinner?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ai.icg.ftclient.controller.LoginController">
+<AnchorPane fx:id="border" prefHeight="350.0" prefWidth="543.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ai.icg.ftclient.controller.LoginController">
     <children>
-        <JFXTextField fx:id="txtID" layoutX="314.0" layoutY="229.0" prefHeight="29.0" prefWidth="172.0" />
-        <JFXPasswordField fx:id="txtPassWord" layoutX="314.0" layoutY="282.0" prefHeight="29.0" prefWidth="172.0" />
-        <JFXButton fx:id="btnlogin" layoutX="366.0" layoutY="343.0" onAction="#OnLogin" text="Login" />
-        <JFXSpinner fx:id="sp" layoutX="375.0" layoutY="257.0" styleClass="spinner-blue" />
-        <JFXButton fx:id="btnok" layoutX="370.0" layoutY="343.0" onAction="#OnCheck" text="확인" />
-        <Label fx:id="lbinfo" layoutX="217.0" layoutY="311.0" prefHeight="19.0" prefWidth="367.0" />
+        <TextField fx:id="txtID" layoutX="127.0" layoutY="153.0" prefHeight="37.0" prefWidth="290.0" />
+        <PasswordField fx:id="txtPassWord" layoutX="127.0" layoutY="206.0" prefHeight="37.0" prefWidth="290.0" />
+        <JFXSpinner fx:id="sp" layoutX="246.0" layoutY="173.0" styleClass="spinner-blue" />
+        <JFXButton fx:id="btnlogin" layoutX="127.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#OnLogin" prefHeight="52.0" prefWidth="140.0" text="Login" />
+        <JFXButton fx:id="btnok" layoutX="127.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#OnCheck" prefHeight="52.0" prefWidth="140.0" text="OK" />
+        <JFXButton fx:id="btnClose" layoutX="273.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#OnClose" prefHeight="52.0" prefWidth="140.0" text="Close" />
+        <Label fx:id="lbinfo" layoutX="128.0" layoutY="162.0" prefHeight="73.0" prefWidth="290.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="68.0" prefHeight="60.0" prefWidth="370.0" text="Welcome Ichthys Genomics">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

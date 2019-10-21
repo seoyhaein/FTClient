@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.TaskProgressView?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ai.icg.ftclient.controller.UploadController">
+    <bottom>
+        <VBox prefHeight="64.0" prefWidth="600.0" BorderPane.alignment="CENTER"/>
+    </bottom>
+    <top>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <ToolBar prefHeight="114.0" prefWidth="1200.0">
+                    <items>
+                        <Button mnemonicParsing="false" onAction="#OnSearchFiles" prefHeight="50.0" prefWidth="93.0"
+                                text="File"/>
+                        <Button mnemonicParsing="false" onAction="#OnExe" prefHeight="50.0" prefWidth="93.0" text="1"/>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="93.0" text="2"/>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="93.0" text="3"/>
+                    </items>
+                </ToolBar>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <TaskProgressView fx:id="tpv" BorderPane.alignment="CENTER"/>
+    </center>
+</BorderPane>

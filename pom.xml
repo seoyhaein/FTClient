@@ -16,7 +16,6 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-
                 </configuration>
             </plugin>
             <plugin>
@@ -71,11 +70,6 @@
             <version>8.0.17</version>
         </dependency>
         <dependency>
-            <groupId>org.javatuples</groupId>
-            <artifactId>javatuples</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
             <groupId>icg</groupId>
             <artifactId>fcapiwin</artifactId>
             <version>1.0.0</version>
@@ -86,9 +80,14 @@
             <version>8.0.9</version>
         </dependency>
         <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx</artifactId>
-            <version>8.9</version>
+            <groupId>org.jfxtras</groupId>
+            <artifactId>jmetro</artifactId>
+            <version>5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.14</version>
         </dependency>
     </dependencies>
     <properties>
